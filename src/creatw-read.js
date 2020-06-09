@@ -9,6 +9,7 @@ constructor(props){
   this.newClick = false;
   this.str = "";
   this.newPosts = [];
+  this.i = -1;
   this.currentIndex = 0;
   this.state = {
     posts : [],
@@ -39,32 +40,18 @@ updateItem(e){
   console.log(posts);
   this.setState({status:"create"});
 }
-clearItem=(index)=>{
-  console.log(index);
-  let newPosts = this.state.posts.slice();
-  
-  
-  newPosts.splice(index,1);
-  console.log(newPosts);
-  
-  // let newPosts = posts.filter(item =>{
-    
-  
-  // if(item[1] !==e.target.className)
-  //   {
-  //     return item;
-  //   }
-  // })
-  
-  // posts.splice(e.target.className,1);
-  this.setState({posts:newPosts});
+clearItem(e){
+  console.log(e.target.className);
+  let posts = this.state.posts.slice();
+  posts.splice(e.target.className,1);
+  this.setState({posts:posts});
   console.log(this.state.posts);
   
 }
 handleSubmit = (e)=>{
   e.preventDefault();
-  console.log(e.target[0]);
-  this.addPost(e.target[0].value,e.target[0].className);
+  this.addPost(e.target[0].value,this.currentIndex);
+  this.currentIndex ++;
   // console.log(e.target[0].value);
   e.target[0].value = "";
   this.setState({status:"create"});
@@ -78,9 +65,10 @@ addIndex(posts){
 }
 
 addPost(posts,index){
+  
   this.newPosts = this.state.posts.slice();
   this.addIndex();
-this.newPosts.push([posts,index]);
+this.newPosts.push([posts,Date.now()]);
  this.setState({posts:this.newPosts},()=>console.log(this.state.posts));
 
  
@@ -98,12 +86,11 @@ this.newPosts.push([posts,index]);
         
           this.state.posts?
           this.state.posts.map((post,index)=>{
-            console.log(index);
-            
+            this.i++;
             this.state.index.push(index);
-            console.log(index);
-            // console.log(this.i);
-            return (<Post post = {post[0]} key = {post} time = {index} clear = {(index)=>this.clearItem(index)} update = {(e) =>this.setUpdateItem(e)}/>
+            
+            console.log(this.i);
+            return (<Post post = {post[0]} key = {post} index = {post} clear = {(e)=>this.clearItem(e)} update = {(e) =>this.setUpdateItem(e)}/>
             )
           
             }):null

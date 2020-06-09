@@ -1,0 +1,27 @@
+div{
+    background: white;/*linear-gradient(to right,#586776,#192A56);*/
+    padding-bottom: 5vh;
+    color:#231123;;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    width:40vw;
+    justify-content: center space-between;
+}
+.todo-holder{
+    border-top: 1px solid #231123;;
+    
+}
+button{
+    background:linear-gradient(to bottom,#01CBC6,#2475B0);
+    padding: 10px;
+    margin: 5px;
+    border-radius:5px;
+    color:white;
+    box-shadow: 0 3px 3px black;
+}
+@media only screen and (min-width: 600px){
+    div{
+        width: 40vw;
+    }
+}
